@@ -1,108 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emon Islam - Custom 3D Card Generator</title>
+    <title>3D Custom Card Studio</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- html2canvas for downloading card as image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f172a; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .main-wrapper { text-align: center; width: 100%; max-width: 850px; padding: 20px; }
-        h1 { margin-bottom: 8px; font-size: 24px; color: #38bdf8; }
-        .subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 25px; }
-        .checkout-container { display: flex; background: #1e293b; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); gap: 30px; text-align: left; flex-wrap: wrap; justify-content: center; }
-        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .card-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        /* 3D Perspective Container */
+        .perspective-container {
+            perspective: 1000px;
+        }
         /* 3D Card Styling */
-        .card { width: 320px; height: 190px; background: linear-gradient(135deg, #3b82f6, #6366f1, #a855f7); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 15px 30px rgba(0,0,0,0.4); transition: background 0.5s ease; position: relative; overflow: hidden; }
-        .card-chip { width: 40px; height: 30px; background: #eab308; border-radius: 4px; }
-        .card-number { font-size: 18px; letter-spacing: 2px; font-weight: bold; }
-        .card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
-        .card-holder { font-size: 13px; opacity: 0.9; text-transform: uppercase; }
-        .brand-badge { font-size: 11px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; }
-
-        /* Form */
-        .payment-form { flex: 1; min-width: 280px; }
-        label { display: block; font-size: 12px; margin-bottom: 5px; color: #cbd5e1; }
-        input, select { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #fff; outline: none; }
-        .pay-btn { width: 100%; padding: 12px; background: #38bdf8; border: none; border-radius: 6px; color: #0f172a; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .pay-btn:hover { background: #0ea5e9; }
+        .card-3d {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
     </style>
 </head>
-<body>
-    <div class="main-wrapper">
-        <h1>Emon's Custom Card Studio</h1>
-        <p class="subtitle">ইচ্ছামতন ডিজাইন ও কালার সিলেক্ট করে আপনার নিজস্ব 3D কার্ড তৈরি করুন!</p>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="w-full max-w-md bg-[#131b2e] border border-gray-800 rounded-2xl p-6 shadow-2xl">
         
-        <div class="checkout-container">
-            <!-- Dynamic 3D Card Preview -->
-            <div class="card" id="previewCard">
-                <div class="card-chip"></div>
-                <div class="card-number" id="displayNum">1267 6738 7467 6475</div>
-                <div class="card-footer">
-                    <div class="card-holder" id="displayHolder">EMON ISLAM</div>
-                    <div class="brand-badge">EMONX</div>
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <h1 class="text-xl font-bold text-cyan-400 card-font">3D Custom Card Studio</h1>
+            <p class="text-xs text-gray-400 mt-1">ইচ্ছমতো নাম ও কালার সিলেক্ট করে আপনার নিজস্ব 3D কার্ড তৈরি করুন!</p>
+        </div>
+
+        <!-- 3D Card Preview Area -->
+        <div class="perspective-container mb-6 flex justify-center">
+            <div id="cardElement" class="card-3d w-full h-52 rounded-2xl p-5 flex flex-col justify-between shadow-2xl relative overflow-hidden bg-gradient-to-tr from-rose-600 to-pink-500 text-white cursor-pointer select-none">
+                
+                <!-- Background gloss/shine effect -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
+
+                <!-- Top Row: Chip & Brand -->
+                <div class="flex justify-between items-center z-10">
+                    <!-- EMV Chip -->
+                    <div class="w-12 h-9 bg-gradient-to-tr from-amber-300 to-amber-500 rounded-md shadow-inner flex items-center justify-center border border-amber-600/40">
+                        <div class="w-8 h-6 border border-amber-700/30 grid grid-cols-2 grid-rows-2 gap-0.5 p-0.5">
+                            <div class="bg-amber-700/20 rounded-[1px]"></div>
+                            <div class="bg-amber-700/20 rounded-[1px]"></div>
+                            <div class="bg-amber-700/20 rounded-[1px]"></div>
+                            <div class="bg-amber-700/20 rounded-[1px]"></div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold tracking-widest uppercase opacity-80 card-font">SECURE</span>
+                </div>
+
+                <!-- Middle Row: Card Number -->
+                <div class="z-10 my-auto">
+                    <div id="previewCardNumber" class="text-xl tracking-wider card-font drop-shadow-md">00022 0319 0721 062</div>
+                </div>
+
+                <!-- Bottom Row: Card Holder & VIP Badge -->
+                <div class="flex justify-between items-end z-10">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-wider text-white/70">Card Holder</p>
+                        <div id="previewCardName" class="text-sm font-semibold tracking-wide uppercase card-font">EMON KHAN</div>
+                    </div>
+                    <!-- Fixed VIP Badge instead of EMONX -->
+                    <div class="px-3 py-1 bg-black/30 backdrop-blur-md rounded-full border border-white/20 text-xs font-bold tracking-wider text-amber-300 shadow-sm card-font">
+                        VIP
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Form to customize -->
-            <div class="payment-form">
-                <form id="cardForm">
-                    <label>Card Number (Custom)</label>
-                    <input type="text" id="numInput" placeholder="1267 6738 7467 6475" maxlength="19">
+        <!-- Form Controls -->
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-medium text-gray-400 mb-1">Card Number (Custom)</label>
+                <input type="text" id="inputCardNumber" value="00022 0319 0721 062" 
+                    class="w-full bg-[#0b0f19] border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-cyan-500"
+                    oninput="updateCardNumber(this.value)">
+            </div>
 
-                    <label>Card Holder Name</label>
-                    <input type="text" id="holderInput" placeholder="Emon Islam">
+            <div>
+                <label class="block text-xs font-medium text-gray-400 mb-1">Card Holder Name</label>
+                <input type="text" id="inputCardName" value="EMON KHAN" 
+                    class="w-full bg-[#0b0f19] border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-cyan-500 uppercase"
+                    oninput="updateCardName(this.value)">
+            </div>
 
-                    <label>Choose Card Style & Theme</label>
-                    <select id="colorSelect">
-                        <option value="linear-gradient(135deg, #3b82f6, #6366f1, #a855f7)">Cyber Blue & Purple (Default)</option>
-                        <option value="linear-gradient(135deg, #f59e0b, #d97706, #b45309)">Royal Gold (VIP)</option>
-                        <option value="linear-gradient(135deg, #10b981, #059669, #047857)">Emerald Cyber (Python Style)</option>
-                        <option value="linear-gradient(135deg, #f43f5e, #e11d48, #9f1239)">Ruby Red (Dark Velvet)</option>
-                        <option value="linear-gradient(135deg, #0f172a, #334155, #475569)">Matrix Dark Minimal</option>
-                    </select>
+            <div>
+                <label class="block text-xs font-medium text-gray-400 mb-1">Choose Card Style & Theme</label>
+                <select id="themeSelector" 
+                    class="w-full bg-[#0b0f19] border border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-cyan-500"
+                    onchange="updateTheme(this.value)">
+                    <option value="from-rose-600 to-pink-500">Ruby Red (Dark Velvet)</option>
+                    <option value="from-slate-900 to-slate-700">Obsidian Black (Matte)</option>
+                    <option value="from-blue-600 to-cyan-500">Royal Blue (Ocean)</option>
+                    <option value="from-emerald-600 to-teal-500">Emerald Green (Neon)</option>
+                    <option value="from-purple-600 to-indigo-600">Deep Purple (Cyber)</option>
+                </select>
+            </div>
 
-                    <button type="button" class="pay-btn" onclick="renderCard()">Render & Public Card</button>
-                </form>
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-2 gap-3 pt-2">
+                <button onclick="renderAndPublic()" 
+                    class="w-full bg-cyan-500 hover:bg-cyan-600 text-gray-950 font-semibold py-2.5 rounded-lg text-sm transition shadow-lg shadow-cyan-500/20">
+                    Render & Public
+                </button>
+                <button onclick="downloadCard()" 
+                    class="w-full bg-emerald-500 hover:bg-emerald-600 text-gray-950 font-semibold py-2.5 rounded-lg text-sm transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-1.5">
+                    📥 Download
+                </button>
             </div>
         </div>
+
     </div>
 
+    <!-- JavaScript for Interactivity, 3D Tilt & Download -->
     <script>
-        const numInput = document.getElementById('numInput');
-        const holderInput = document.getElementById('holderInput');
-        const colorSelect = document.getElementById('colorSelect');
-        const displayNum = document.getElementById('displayNum');
-        const displayHolder = document.getElementById('displayHolder');
-        const previewCard = document.getElementById('previewCard');
+        const card = document.getElementById('cardElement');
 
-        numInput.addEventListener('input', (e) => {
-            displayNum.textContent = e.target.value || "1267 6738 7467 6475";
+        // Real-time Text Updates
+        function updateCardNumber(val) {
+            document.getElementById('previewCardNumber').innerText = val || "0000 0000 0000 0000";
+        }
+
+        function updateCardName(val) {
+            document.getElementById('previewCardName').innerText = val || "YOUR NAME";
+        }
+
+        function updateTheme(gradientClass) {
+            // Remove previous gradient classes
+            card.className = card.className.replace(/from-\S+ to-\S+/g, '');
+            // Add new gradient
+            card.classList.add(...gradientClass.split(' '));
+        }
+
+        // 3D Tilt Effect on Mouse Move / Touch
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            const rotateX = (-y / 10);
+            const rotateY = (x / 10);
+
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
         });
 
-        holderInput.addEventListener('input', (e) => {
-            displayHolder.textContent = e.target.value.toUpperCase() || "EMON ISLAM";
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
         });
 
-        colorSelect.addEventListener('change', (e) => {
-            previewCard.style.background = e.target.value;
-        });
+        // Publish Functionality placeholder
+        function renderAndPublic() {
+            alert('কার্ডটি সফলভাবে রেন্ডার এবং পাব্লিক করা হয়েছে!');
+        }
 
-        function renderCard() {
-            const data = {
-                cardNumber: numInput.value,
-                cardHolder: holderInput.value,
-                cardColor: colorSelect.value
-            };
-
-            fetch('/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(data => {
-                alert("ধন্যবাদ! আপনার কাস্টম কার্ডটি সফলভাবে রেন্ডার এবং পাবলিশ করা হয়েছে।");
+        // Download Card as Image using html2canvas
+        function downloadCard() {
+            html2canvas(card, { scale: 3, backgroundColor: null }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'my-vip-card.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
             });
         }
     </script>
