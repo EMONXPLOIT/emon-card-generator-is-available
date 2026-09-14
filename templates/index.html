@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emon Islam - Custom 3D Card Generator</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { text-align: center; width: 100%; max-width: 850px; padding: 20px; }
+        h1 { margin-bottom: 8px; font-size: 24px; color: #38bdf8; }
+        .subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 25px; }
+        .checkout-container { display: flex; background: #1e293b; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); gap: 30px; text-align: left; flex-wrap: wrap; justify-content: center; }
+        
+        /* 3D Card Styling */
+        .card { width: 320px; height: 190px; background: linear-gradient(135deg, #3b82f6, #6366f1, #a855f7); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 15px 30px rgba(0,0,0,0.4); transition: background 0.5s ease; position: relative; overflow: hidden; }
+        .card-chip { width: 40px; height: 30px; background: #eab308; border-radius: 4px; }
+        .card-number { font-size: 18px; letter-spacing: 2px; font-weight: bold; }
+        .card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
+        .card-holder { font-size: 13px; opacity: 0.9; text-transform: uppercase; }
+        .brand-badge { font-size: 11px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; }
+
+        /* Form */
+        .payment-form { flex: 1; min-width: 280px; }
+        label { display: block; font-size: 12px; margin-bottom: 5px; color: #cbd5e1; }
+        input, select { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #fff; outline: none; }
+        .pay-btn { width: 100%; padding: 12px; background: #38bdf8; border: none; border-radius: 6px; color: #0f172a; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .pay-btn:hover { background: #0ea5e9; }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <h1>Emon's Custom Card Studio</h1>
+        <p class="subtitle">ইচ্ছামতন ডিজাইন ও কালার সিলেক্ট করে আপনার নিজস্ব 3D কার্ড তৈরি করুন!</p>
+        
+        <div class="checkout-container">
+            <!-- Dynamic 3D Card Preview -->
+            <div class="card" id="previewCard">
+                <div class="card-chip"></div>
+                <div class="card-number" id="displayNum">1267 6738 7467 6475</div>
+                <div class="card-footer">
+                    <div class="card-holder" id="displayHolder">EMON ISLAM</div>
+                    <div class="brand-badge">EMONX</div>
+                </div>
+            </div>
+
+            <!-- Form to customize -->
+            <div class="payment-form">
+                <form id="cardForm">
+                    <label>Card Number (Custom)</label>
+                    <input type="text" id="numInput" placeholder="1267 6738 7467 6475" maxlength="19">
+
+                    <label>Card Holder Name</label>
+                    <input type="text" id="holderInput" placeholder="Emon Islam">
+
+                    <label>Choose Card Style & Theme</label>
+                    <select id="colorSelect">
+                        <option value="linear-gradient(135deg, #3b82f6, #6366f1, #a855f7)">Cyber Blue & Purple (Default)</option>
+                        <option value="linear-gradient(135deg, #f59e0b, #d97706, #b45309)">Royal Gold (VIP)</option>
+                        <option value="linear-gradient(135deg, #10b981, #059669, #047857)">Emerald Cyber (Python Style)</option>
+                        <option value="linear-gradient(135deg, #f43f5e, #e11d48, #9f1239)">Ruby Red (Dark Velvet)</option>
+                        <option value="linear-gradient(135deg, #0f172a, #334155, #475569)">Matrix Dark Minimal</option>
+                    </select>
+
+                    <button type="button" class="pay-btn" onclick="renderCard()">Render & Public Card</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const numInput = document.getElementById('numInput');
+        const holderInput = document.getElementById('holderInput');
+        const colorSelect = document.getElementById('colorSelect');
+        const displayNum = document.getElementById('displayNum');
+        const displayHolder = document.getElementById('displayHolder');
+        const previewCard = document.getElementById('previewCard');
+
+        numInput.addEventListener('input', (e) => {
+            displayNum.textContent = e.target.value || "1267 6738 7467 6475";
+        });
+
+        holderInput.addEventListener('input', (e) => {
+            displayHolder.textContent = e.target.value.toUpperCase() || "EMON ISLAM";
+        });
+
+        colorSelect.addEventListener('change', (e) => {
+            previewCard.style.background = e.target.value;
+        });
+
+        function renderCard() {
+            const data = {
+                cardNumber: numInput.value,
+                cardHolder: holderInput.value,
+                cardColor: colorSelect.value
+            };
+
+            fetch('/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("ধন্যবাদ! আপনার কাস্টম কার্ডটি সফলভাবে রেন্ডার এবং পাবলিশ করা হয়েছে।");
+            });
+        }
+    </script>
+</body>
+</html>
