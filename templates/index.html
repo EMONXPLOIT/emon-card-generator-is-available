@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realistic 3D Card Studio</title>
+    <title>Realistic 3D Card Studio - Original Look</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
             perspective: 1000px;
             width: 100%;
             max-width: 350px;
-            height: 210px;
+            height: 215px;
             margin: 10px auto 20px auto;
         }
 
@@ -37,7 +37,7 @@
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
             border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.15);
         }
 
         .card-face {
@@ -49,7 +49,7 @@
         }
 
         .card-front {
-            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+            background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
             z-index: 2;
         }
 
@@ -67,7 +67,7 @@
         .card-shine {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle at 60% 30%, rgba(255,255,255,0.25) 0%, transparent 60%);
             mix-blend-mode: overlay;
             pointer-events: none;
         }
@@ -91,17 +91,17 @@
         /* Contactless Icon */
         .contactless {
             display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(255,255,255,0.7);
-            border-color: transparent transparent transparent rgba(255,255,255,0.8);
+            width: 13px;
+            height: 13px;
+            border: 2px solid rgba(255,255,255,0.8);
+            border-color: transparent transparent transparent rgba(255,255,255,0.9);
             border-radius: 50%;
             transform: rotate(45deg);
-            margin-left: 6px;
+            margin-left: 8px;
         }
 
         .embossed-text {
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.15), -1px -1px 0px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.2), -1px -1px 0px rgba(0,0,0,0.6);
         }
 
         input, select {
@@ -126,9 +126,9 @@
     <div class="w-full max-w-sm bg-[#111827] border border-gray-800/80 rounded-2xl p-5 shadow-2xl">
         
         <!-- Header -->
-        <div class="text-center mb-4">
-            <h1 class="text-lg font-bold text-cyan-400 font-brand">Mobile 3D Card Studio</h1>
-            <p class="text-[11px] text-gray-400">আপনার তথ্য দিয়ে রিয়েলিস্টিক কার্ড তৈরি ও ডাউনলোড করুন</p>
+        <div class="text-center mb-3">
+            <h1 class="text-lg font-bold text-cyan-400 font-brand">Original 3D Card Studio</h1>
+            <p class="text-[11px] text-gray-400">অরিজিনাল ব্যাংকিং লুক ও কালার কাস্টমাইজেশন</p>
         </div>
 
         <!-- 3D Interactive Card Preview -->
@@ -139,33 +139,37 @@
                 <div id="cardFrontSide" class="card-face card-front p-4 flex flex-col justify-between">
                     <div class="card-shine"></div>
                     
-                    <!-- Top Row -->
+                    <!-- Top Row (Bank Name / Brand & Chip) -->
                     <div class="flex justify-between items-center relative z-10">
                         <div class="flex items-center">
-                            <div class="sim-chip w-10 h-7"></div>
+                            <div class="sim-chip w-9 h-7"></div>
                             <div class="contactless"></div>
                         </div>
-                        <div id="lblNetwork" class="font-brand font-bold text-base italic text-white tracking-wider drop-shadow">VISA</div>
+                        <div id="lblNetwork" class="font-brand font-bold text-sm tracking-widest text-white uppercase drop-shadow-md">BRAC BANK</div>
                     </div>
 
-                    <!-- Middle Number -->
+                    <!-- Middle Card Number -->
                     <div class="relative z-10 my-auto text-center">
-                        <div id="lblNumber" class="text-lg tracking-widest font-bold embossed text-white">4532 8920 1928 3921</div>
+                        <div id="lblNumber" class="text-base tracking-[0.2em] font-bold embossed-text text-white">4532 8920 1928 3921</div>
                     </div>
 
-                    <!-- Bottom Details -->
-                    <div class="flex justify-between items-end relative z-10 text-[11px]">
-                        <div>
-                            <span class="text-[8px] block text-gray-300 uppercase">Card Holder</span>
-                            <span id="lblName" class="font-bold uppercase tracking-wider embossed text-white">EMON KHAN</span>
+                    <!-- Bottom Details (Valid Dates & Name) -->
+                    <div class="relative z-10">
+                        <div class="flex justify-start gap-6 text-[8px] text-gray-200 mb-0.5">
+                            <div>
+                                <span style="font-size: 5px; display: block; opacity: 0.8;">VALID FROM</span>
+                                <span id="lblValidFrom" class="font-bold">01/22</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 5px; display: block; opacity: 0.8;">VALID THRU</span>
+                                <span id="lblExpiry" class="font-bold">09/28</span>
+                            </div>
                         </div>
-                        <div>
-                            <span class="text-[8px] block text-gray-300 uppercase">Expires</span>
-                            <span id="lblExpiry" class="font-bold tracking-wider embossed text-white">09/28</span>
-                        </div>
-                        <div>
-                            <span class="text-[8px] block text-gray-300 uppercase">DOB</span>
-                            <span id="lblDob" class="font-bold tracking-wider embossed text-white">15/08/2000</span>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span id="lblName" class="font-bold uppercase tracking-wider embossed-text text-white text-xs">EMON KHAN</span>
+                            </div>
+                            <div id="lblCardTypeLogo" class="font-brand font-bold italic text-xs tracking-wider text-white">VISA</div>
                         </div>
                     </div>
                 </div>
@@ -174,52 +178,58 @@
                 <div class="card-face card-back flex flex-col justify-between py-4">
                     <div class="w-full h-9 bg-black mt-1"></div>
                     <div class="px-4">
-                        <span class="text-[8px] text-gray-400">Authorized Signature</span>
+                        <span class="text-[8px] text-gray-400">Authorized Signature / CVV</span>
                         <div class="w-full h-8 bg-white/20 rounded flex items-center justify-end px-3 mt-1">
                             <span id="lblCvv" class="text-gray-900 font-bold tracking-widest text-xs bg-white px-2 py-0.5 rounded">492</span>
                         </div>
                     </div>
                     <div class="text-[7px] text-center text-gray-500 px-4">
-                        Original 3D Render Studio • For entertainment & design purpose only.
+                        Original 3D Card Studio • For design purpose only.
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="text-center mb-4">
+        <div class="text-center mb-3">
             <span class="text-[10px] text-cyan-400 cursor-pointer" onclick="flipCard()">🔄 কার্ড উল্টাতে এখানে ট্যাপ করুন</span>
         </div>
 
         <!-- Custom Controls Form -->
-        <div class="space-y-3 text-xs">
-            <div class="grid grid-cols-2 gap-2.5">
+        <div class="space-y-2.5 text-xs">
+            <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <label class="block text-[10px] text-gray-400 mb-1">Card Brand</label>
-                    <select id="inpNetwork" onchange="document.getElementById('lblNetwork').innerText=this.value">
-                        <option value="VISA">Visa</option>
-                        <option value="MASTERCARD">Mastercard</option>
-                        <option value="RUPAY">RuPay</option>
-                        <option value="BRAC BANK">BRAC Bank</option>
-                    </select>
+                    <label class="block text-[10px] text-gray-400 mb-1">Bank / Brand Name</label>
+                    <input type="text" id="inpNetwork" value="BRAC BANK" oninput="document.getElementById('lblNetwork').innerText=this.value.toUpperCase()">
                 </div>
                 <div>
-                    <label class="block text-[10px] text-gray-400 mb-1">Theme / Color</label>
-                    <select id="inpTheme" onchange="updateTheme(this.value)">
-                        <option value="linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)">Ocean Blue (BRAC)</option>
-                        <option value="linear-gradient(135deg, #eab308 0%, #ca8a04 100%)">Gold Luxury</option>
-                        <option value="linear-gradient(135deg, #10b981 0%, #047857 100%)">Emerald Dark</option>
-                        <option value="linear-gradient(135deg, #f43f5e 0%, #881337 100%)">Ruby Velvet</option>
-                        <option value="linear-gradient(135deg, #1e293b 0%, #0f172a 100%)">Midnight Black</option>
+                    <label class="block text-[10px] text-gray-400 mb-1">Card Network</label>
+                    <select id="inpType" onchange="document.getElementById('lblCardTypeLogo').innerText=this.value">
+                        <option value="VISA">VISA</option>
+                        <option value="MASTERCARD">MASTERCARD</option>
+                        <option value="RUPAY">RUPAY</option>
+                        <option value="WORLD">WORLD</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Custom Color Picker Option -->
+            <!-- Custom Gradient & Color Options -->
             <div>
-                <label class="block text-[10px] text-gray-400 mb-1">অথবা নিজের পছন্দমতো কালার দিন (Custom Color)</label>
+                <label class="block text-[10px] text-gray-400 mb-1">কার্ডের কালার পরিবর্তন করুন (Background Customization)</label>
+                <div class="grid grid-cols-4 gap-1.5 mb-2">
+                    <button onclick="setPresetColor('#00b4d8', '#0077b6')" class="h-7 rounded bg-sky-500 border border-white/20 text-[9px] font-bold">Ocean</button>
+                    <button onclick="setPresetColor('#059669', '#064e3b')" class="h-7 rounded bg-emerald-600 border border-white/20 text-[9px] font-bold">Emerald</button>
+                    <button onclick="setPresetColor('#d97706', '#78350f')" class="h-7 rounded bg-amber-600 border border-white/20 text-[9px] font-bold">Gold</button>
+                    <button onclick="setPresetColor('#334155', '#0f172a')" class="h-7 rounded bg-slate-800 border border-white/20 text-[9px] font-bold">Dark</button>
+                </div>
                 <div class="flex gap-2">
-                    <input type="color" id="customColor1" value="#0ea5e9" class="h-9 p-1 cursor-pointer" onchange="applyCustomColor()">
-                    <input type="color" id="customColor2" value="#0369a1" class="h-9 p-1 cursor-pointer" onchange="applyCustomColor()">
+                    <div class="flex-1 flex items-center gap-1 bg-[#0b0f17] border border-[#1e293b] rounded-lg px-2 py-1">
+                        <span class="text-[9px] text-gray-400">Color 1:</span>
+                        <input type="color" id="customColor1" value="#00b4d8" class="w-full h-6 bg-transparent cursor-pointer" onchange="applyCustomColor()">
+                    </div>
+                    <div class="flex-1 flex items-center gap-1 bg-[#0b0f17] border border-[#1e293b] rounded-lg px-2 py-1">
+                        <span class="text-[9px] text-gray-400">Color 2:</span>
+                        <input type="color" id="customColor2" value="#0077b6" class="w-full h-6 bg-transparent cursor-pointer" onchange="applyCustomColor()">
+                    </div>
                 </div>
             </div>
 
@@ -228,21 +238,21 @@
                 <input type="text" id="inputNumberField" value="4532 8920 1928 3921" oninput="document.getElementById('lblNumber').innerText=this.value">
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5">
+            <div class="grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-[10px] text-gray-400 mb-1">Card Holder Name</label>
                     <input type="text" id="inputNameField" value="EMON KHAN" oninput="document.getElementById('lblName').innerText=this.value.toUpperCase()">
                 </div>
                 <div>
-                    <label class="block text-[10px] text-gray-400 mb-1">Date of Birth (DOB)</label>
-                    <input type="text" id="inputDobField" value="15/08/2000" oninput="document.getElementById('lblDob').innerText=this.value">
+                    <label class="block text-[10px] text-gray-400 mb-1">Valid Thru (Expiry)</label>
+                    <input type="text" id="inputExpiryField" value="09/28" oninput="document.getElementById('lblExpiry').innerText=this.value">
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5">
+            <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <label class="block text-[10px] text-gray-400 mb-1">Expiry Date</label>
-                    <input type="text" id="inputExpiryField" value="09/28" oninput="document.getElementById('lblExpiry').innerText=this.value">
+                    <label class="block text-[10px] text-gray-400 mb-1">Valid From</label>
+                    <input type="text" id="inputValidFromField" value="01/22" oninput="document.getElementById('lblValidFrom').innerText=this.value">
                 </div>
                 <div>
                     <label class="block text-[10px] text-gray-400 mb-1">CVV Code</label>
@@ -251,7 +261,7 @@
             </div>
 
             <!-- Download Button -->
-            <div class="pt-2">
+            <div class="pt-1">
                 <button onclick="downloadImage()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-1.5">
                     📥 Download HD Card Image
                 </button>
@@ -269,8 +279,10 @@
             card.classList.toggle('flipped');
         }
 
-        function updateTheme(gradientValue) {
-            frontSide.style.background = gradientValue;
+        function setPresetColor(c1, c2) {
+            document.getElementById('customColor1').value = c1;
+            document.getElementById('customColor2').value = c2;
+            frontSide.style.background = `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)`;
         }
 
         function applyCustomColor() {
@@ -310,7 +322,7 @@
             setTimeout(() => {
                 html2canvas(frontSide, { scale: 3, backgroundColor: null }).then(canvas => {
                     const link = document.createElement('a');
-                    link.download = 'my-3d-card.png';
+                    link.download = 'original-bank-card.png';
                     link.href = canvas.toDataURL('image/png');
                     link.click();
                 });
