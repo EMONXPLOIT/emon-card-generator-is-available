@@ -49,7 +49,7 @@
         }
 
         .card-front {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
             z-index: 2;
         }
 
@@ -86,6 +86,18 @@
             inset: 2px;
             border: 1px solid rgba(133, 77, 14, 0.4);
             border-radius: 2px;
+        }
+
+        /* Contactless Icon */
+        .contactless {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.7);
+            border-color: transparent transparent transparent rgba(255,255,255,0.8);
+            border-radius: 50%;
+            transform: rotate(45deg);
+            margin-left: 6px;
         }
 
         .embossed-text {
@@ -129,7 +141,10 @@
                     
                     <!-- Top Row -->
                     <div class="flex justify-between items-center relative z-10">
-                        <div class="sim-chip w-10.5 h-8"></div>
+                        <div class="flex items-center">
+                            <div class="sim-chip w-10 h-7"></div>
+                            <div class="contactless"></div>
+                        </div>
                         <div id="lblNetwork" class="font-brand font-bold text-base italic text-white tracking-wider drop-shadow">VISA</div>
                     </div>
 
@@ -141,15 +156,15 @@
                     <!-- Bottom Details -->
                     <div class="flex justify-between items-end relative z-10 text-[11px]">
                         <div>
-                            <span class="text-[8px] block text-gray-400 uppercase">Card Holder</span>
+                            <span class="text-[8px] block text-gray-300 uppercase">Card Holder</span>
                             <span id="lblName" class="font-bold uppercase tracking-wider embossed text-white">EMON KHAN</span>
                         </div>
                         <div>
-                            <span class="text-[8px] block text-gray-400 uppercase">Expires</span>
+                            <span class="text-[8px] block text-gray-300 uppercase">Expires</span>
                             <span id="lblExpiry" class="font-bold tracking-wider embossed text-white">09/28</span>
                         </div>
                         <div>
-                            <span class="text-[8px] block text-gray-400 uppercase">DOB</span>
+                            <span class="text-[8px] block text-gray-300 uppercase">DOB</span>
                             <span id="lblDob" class="font-bold tracking-wider embossed text-white">15/08/2000</span>
                         </div>
                     </div>
@@ -184,17 +199,27 @@
                         <option value="VISA">Visa</option>
                         <option value="MASTERCARD">Mastercard</option>
                         <option value="RUPAY">RuPay</option>
-                        <option value="VIP CARD">VIP Black</option>
+                        <option value="BRAC BANK">BRAC Bank</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-[10px] text-gray-400 mb-1">Color Theme</label>
+                    <label class="block text-[10px] text-gray-400 mb-1">Theme / Color</label>
                     <select id="inpTheme" onchange="updateTheme(this.value)">
-                        <option value="from-slate-900 to-indigo-950">Midnight Blue</option>
-                        <option value="from-rose-950 to-slate-950">Ruby Velvet</option>
-                        <option value="from-emerald-950 to-slate-950">Emerald Dark</option>
-                        <option value="from-amber-950 to-slate-950">Gold Luxury</option>
+                        <option value="linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)">Ocean Blue (BRAC)</option>
+                        <option value="linear-gradient(135deg, #eab308 0%, #ca8a04 100%)">Gold Luxury</option>
+                        <option value="linear-gradient(135deg, #10b981 0%, #047857 100%)">Emerald Dark</option>
+                        <option value="linear-gradient(135deg, #f43f5e 0%, #881337 100%)">Ruby Velvet</option>
+                        <option value="linear-gradient(135deg, #1e293b 0%, #0f172a 100%)">Midnight Black</option>
                     </select>
+                </div>
+            </div>
+
+            <!-- Custom Color Picker Option -->
+            <div>
+                <label class="block text-[10px] text-gray-400 mb-1">অথবা নিজের পছন্দমতো কালার দিন (Custom Color)</label>
+                <div class="flex gap-2">
+                    <input type="color" id="customColor1" value="#0ea5e9" class="h-9 p-1 cursor-pointer" onchange="applyCustomColor()">
+                    <input type="color" id="customColor2" value="#0369a1" class="h-9 p-1 cursor-pointer" onchange="applyCustomColor()">
                 </div>
             </div>
 
@@ -244,12 +269,17 @@
             card.classList.toggle('flipped');
         }
 
-        function updateTheme(gradientClass) {
-            frontSide.className = frontSide.className.replace(/from-\S+ to-\S+/g, '');
-            frontSide.classList.add(...gradientClass.split(' '));
+        function updateTheme(gradientValue) {
+            frontSide.style.background = gradientValue;
         }
 
-        // Mobile Touch & Gyro/Move Tilt Effect
+        function applyCustomColor() {
+            const c1 = document.getElementById('customColor1').value;
+            const c2 = document.getElementById('customColor2').value;
+            frontSide.style.background = `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)`;
+        }
+
+        // Mobile Touch & Tilt Effect
         card.addEventListener('touchmove', (e) => {
             const rect = card.getBoundingClientRect();
             const touch = e.touches[0];
