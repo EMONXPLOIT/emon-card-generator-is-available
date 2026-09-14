@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realistic 3D Card Studio</title>
+    <title>3D Card Studio - EMON KHAN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -21,13 +21,12 @@
         }
         .font-brand { font-family: 'Orbitron', sans-serif; }
 
-        /* 3D Scene Wrapper */
         .phone-scene {
-            perspective: 1000px;
+            perspective: 1200px;
             width: 100%;
             max-width: 350px;
-            height: 210px;
-            margin: 10px auto 20px auto;
+            height: 215px;
+            margin: 5px auto 15px auto;
         }
 
         .phone-card {
@@ -37,7 +36,7 @@
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
             border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.15);
         }
 
         .card-face {
@@ -63,40 +62,41 @@
             transform: rotateY(180deg);
         }
 
-        /* Holographic Light Shine */
         .card-shine {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 0%, transparent 75%);
             mix-blend-mode: overlay;
             pointer-events: none;
         }
 
-        /* Gold Chip Simulation */
+        /* Original Golden Chip */
         .sim-chip {
-            background: linear-gradient(135deg, #fde047 0%, #ca8a04 100%);
+            background: linear-gradient(135deg, #fef08a 0%, #ca8a04 100%);
             border-radius: 4px;
-            border: 1px solid #854d0e;
+            border: 1px solid #713f12;
             position: relative;
             overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.4);
         }
-        .sim-chip::after {
+        .sim-chip::before {
             content: '';
             position: absolute;
             inset: 2px;
-            border: 1px solid rgba(133, 77, 14, 0.4);
+            border: 1px solid rgba(113, 63, 18, 0.5);
             border-radius: 2px;
+            background: repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(113,63,18,0.2) 3px, rgba(113,63,18,0.2) 4px);
         }
 
         .embossed-text {
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.15), -1px -1px 0px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.2), -1px -1px 0px rgba(0,0,0,0.6);
         }
 
         input, select {
             background-color: #0b0f17;
             border: 1px solid #1e293b;
             border-radius: 10px;
-            padding: 10px 12px;
+            padding: 9px 12px;
             color: #cbd5e1;
             width: 100%;
             font-size: 13px;
@@ -111,12 +111,12 @@
 </head>
 <body>
 
-    <div class="w-full max-w-sm bg-[#111827] border border-gray-800/80 rounded-2xl p-5 shadow-2xl">
+    <div class="w-full max-w-sm bg-[#111827] border border-gray-800 rounded-2xl p-4 shadow-2xl">
         
-        <!-- Header -->
-        <div class="text-center mb-4">
-            <h1 class="text-lg font-bold text-cyan-400 font-brand">Mobile 3D Card Studio</h1>
-            <p class="text-[11px] text-gray-400">আপনার তথ্য দিয়ে রিয়েলিস্টিক কার্ড তৈরি ও ডাউনলোড করুন</p>
+        <!-- Header & Dev Name -->
+        <div class="text-center mb-3">
+            <h1 class="text-base font-bold text-cyan-400 font-brand">3D Card Studio</h1>
+            <p class="text-[10px] text-gray-400">Developer: <span class="text-amber-400 font-semibold">EMON KHAN</span></p>
         </div>
 
         <!-- 3D Interactive Card Preview -->
@@ -127,10 +127,16 @@
                 <div id="cardFrontSide" class="card-face card-front p-4 flex flex-col justify-between">
                     <div class="card-shine"></div>
                     
-                    <!-- Top Row -->
+                    <!-- Top Row: Chip, Verified Tick & Network -->
                     <div class="flex justify-between items-center relative z-10">
-                        <div class="sim-chip w-10.5 h-8"></div>
-                        <div id="lblNetwork" class="font-brand font-bold text-base italic text-white tracking-wider drop-shadow">VISA</div>
+                        <div class="flex items-center gap-2">
+                            <div class="sim-chip w-10 h-8"></div>
+                            <!-- Verified Checkmark Badge -->
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center shadow-md text-gray-950 font-bold text-xs" title="Verified">
+                                ✓
+                            </div>
+                        </div>
+                        <div id="lblNetwork" class="font-brand font-bold text-sm italic text-white tracking-wider drop-shadow">VISA</div>
                     </div>
 
                     <!-- Middle Number -->
@@ -141,15 +147,15 @@
                     <!-- Bottom Details -->
                     <div class="flex justify-between items-end relative z-10 text-[11px]">
                         <div>
-                            <span class="text-[8px] block text-gray-400 uppercase">Card Holder</span>
+                            <span class="text-[7px] block text-gray-400 uppercase">Card Holder</span>
                             <span id="lblName" class="font-bold uppercase tracking-wider embossed text-white">EMON KHAN</span>
                         </div>
                         <div>
-                            <span class="text-[8px] block text-gray-400 uppercase">Expires</span>
+                            <span class="text-[7px] block text-gray-400 uppercase">Expires</span>
                             <span id="lblExpiry" class="font-bold tracking-wider embossed text-white">09/28</span>
                         </div>
                         <div>
-                            <span class="text-[8px] block text-gray-400 uppercase">DOB</span>
+                            <span class="text-[7px] block text-gray-400 uppercase">DOB</span>
                             <span id="lblDob" class="font-bold tracking-wider embossed text-white">15/08/2000</span>
                         </div>
                     </div>
@@ -157,27 +163,27 @@
 
                 <!-- BACK -->
                 <div class="card-face card-back flex flex-col justify-between py-4">
-                    <div class="w-full h-9 bg-black mt-1"></div>
+                    <div class="w-full h-8 bg-black mt-1"></div>
                     <div class="px-4">
-                        <span class="text-[8px] text-gray-400">Authorized Signature</span>
-                        <div class="w-full h-8 bg-white/20 rounded flex items-center justify-end px-3 mt-1">
+                        <span class="text-[7px] text-gray-400">Authorized Signature</span>
+                        <div class="w-full h-7 bg-white/20 rounded flex items-center justify-end px-3 mt-1">
                             <span id="lblCvv" class="text-gray-900 font-bold tracking-widest text-xs bg-white px-2 py-0.5 rounded">492</span>
                         </div>
                     </div>
-                    <div class="text-[7px] text-center text-gray-500 px-4">
-                        Original 3D Render Studio • For entertainment & design purpose only.
+                    <div class="text-[7px] text-center text-gray-500 px-4 font-brand">
+                        EMON KHAN • 3D Studio Render
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="text-center mb-4">
+        <div class="text-center mb-3">
             <span class="text-[10px] text-cyan-400 cursor-pointer" onclick="flipCard()">🔄 কার্ড উল্টাতে এখানে ট্যাপ করুন</span>
         </div>
 
         <!-- Custom Controls Form -->
-        <div class="space-y-3 text-xs">
-            <div class="grid grid-cols-2 gap-2.5">
+        <div class="space-y-2.5 text-xs">
+            <div class="grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-[10px] text-gray-400 mb-1">Card Brand</label>
                     <select id="inpNetwork" onchange="document.getElementById('lblNetwork').innerText=this.value">
@@ -188,12 +194,13 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-[10px] text-gray-400 mb-1">Color Theme</label>
+                    <label class="block text-[10px] text-gray-400 mb-1">Custom Color / Theme</label>
                     <select id="inpTheme" onchange="updateTheme(this.value)">
                         <option value="from-slate-900 to-indigo-950">Midnight Blue</option>
                         <option value="from-rose-950 to-slate-950">Ruby Velvet</option>
                         <option value="from-emerald-950 to-slate-950">Emerald Dark</option>
                         <option value="from-amber-950 to-slate-950">Gold Luxury</option>
+                        <option value="from-purple-950 to-slate-950">Cyber Purple</option>
                     </select>
                 </div>
             </div>
@@ -203,7 +210,7 @@
                 <input type="text" id="inputNumberField" value="4532 8920 1928 3921" oninput="document.getElementById('lblNumber').innerText=this.value">
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5">
+            <div class="grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-[10px] text-gray-400 mb-1">Card Holder Name</label>
                     <input type="text" id="inputNameField" value="EMON KHAN" oninput="document.getElementById('lblName').innerText=this.value.toUpperCase()">
@@ -214,7 +221,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2.5">
+            <div class="grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-[10px] text-gray-400 mb-1">Expiry Date</label>
                     <input type="text" id="inputExpiryField" value="09/28" oninput="document.getElementById('lblExpiry').innerText=this.value">
@@ -226,7 +233,7 @@
             </div>
 
             <!-- Download Button -->
-            <div class="pt-2">
+            <div class="pt-1">
                 <button onclick="downloadImage()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-1.5">
                     📥 Download HD Card Image
                 </button>
@@ -249,7 +256,7 @@
             frontSide.classList.add(...gradientClass.split(' '));
         }
 
-        // Mobile Touch & Gyro/Move Tilt Effect
+        // Mobile Touch & Mouse Tilt Effect
         card.addEventListener('touchmove', (e) => {
             const rect = card.getBoundingClientRect();
             const touch = e.touches[0];
@@ -262,7 +269,6 @@
             card.style.transform = card.classList.contains('flipped') ? 'rotateY(180deg)' : 'rotateY(0deg)';
         });
 
-        // Mouse Move Tilt for Desktop Preview
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left - rect.width / 2;
@@ -280,7 +286,7 @@
             setTimeout(() => {
                 html2canvas(frontSide, { scale: 3, backgroundColor: null }).then(canvas => {
                     const link = document.createElement('a');
-                    link.download = 'my-3d-card.png';
+                    link.download = 'emon-khan-3d-card.png';
                     link.href = canvas.toDataURL('image/png');
                     link.click();
                 });
